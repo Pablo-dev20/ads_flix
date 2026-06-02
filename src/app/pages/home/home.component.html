@@ -4,33 +4,134 @@
       <ion-menu-button autoHide="false"></ion-menu-button>
     </ion-buttons>
     <ion-title class="navbar-title">ADS Flix</ion-title>
+
+    <ion-searchbar
+      slot="end"
+      placeholder="Buscar filmes, séries..."
+      animated="true"
+      (keyup.enter)="aoBuscar($event)"
+      class="busca-topo">
+    </ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content color="dark">
 
-  <div class="loading-container" *ngIf="isLoading">
-    <ion-spinner name="crescent" color="danger"></ion-spinner>
-    <p>Carregando filmes...</p>
-  </div>
+  @if (isLoading) {
+    <div class="loading-container">
+      <ion-spinner name="crescent" color="danger"></ion-spinner>
+      <p>Carregando catálogo...</p>
+    </div>
+  } @else {
 
-  <ion-grid *ngIf="!isLoading">
-    <ion-row>
-      <ion-col size="6" size-md="4" size-lg="3" *ngFor="let filme of filmes">
-        <ion-card (click)="verDetalhes(filme.id)" appHoverZoom>
-          <div class="poster-wrapper">
-            <img [src]="getPoster(filme.poster_path)" [alt]="filme.title"/>
+    @if (filmesEmAlta.length > 0) {
+      <div class="hero-banner" [style.backgroundImage]="'url(' + getOriginalPoster(filmesEmAlta[0].backdrop_path) + ')'">
+        <div class="hero-overlay">
+          <div class="hero-content">
+            <p class="hero-tag">Destaque do Momento</p>
+            <h1 class="hero-title">{{ filmesEmAlta[0].title || filmesEmAlta[0].name }}</h1>
+            <p class="hero-description">{{ filmesEmAlta[0].overview | slice:0:150 }}...</p>
+
+            <ion-button color="danger" class="btn-assistir" (click)="verDetalhes(filmesEmAlta[0].id, filmesEmAlta[0].media_type || 'movie')">
+              <ion-icon name="play" slot="start"></ion-icon>
+              Veja agora
+            </ion-button>
           </div>
-          <ion-card-header>
-            <ion-card-title>{{ filme.title }}</ion-card-title>
-            <ion-card-subtitle>
-              <ion-icon name="star" color="warning"></ion-icon>
-              {{ filme.vote_average | number:'1.1-1' }}
-            </ion-card-subtitle>
-          </ion-card-header>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+        </div>
+      </div>
+    }
+
+    <div class="container-home ion-padding">
+
+      <div class="secao-filmes">
+          <h2 class="titulo-secao" (click)="verMais('trending')">Em Alta <span class="seta">></span></h2>        <div class="carrossel-horizontal">
+          @for (filme of filmesEmAlta; track filme.id) {
+            <div class="item-filme">
+              <ion-card (click)="verDetalhes(filme.id, filme.media_type || 'movie')" appHoverZoom class="card-filme-home">
+                <div class="poster-wrapper">
+                  <img [src]="getPoster(filme.poster_path)" [alt]="filme.title || filme.name"/>
+                </div>
+                <ion-card-header>
+                  <ion-card-title>{{ filme.title || filme.name }}</ion-card-title>
+                  <ion-card-subtitle>
+                    <ion-icon name="star" color="warning"></ion-icon>
+                    {{ filme.vote_average | number:'1.1-1' }}
+                  </ion-card-subtitle>
+                </ion-card-header>
+              </ion-card>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="secao-filmes">
+        <h2 class="titulo-secao">Populares <span class="seta">></span></h2>
+        <div class="carrossel-horizontal">
+          @for (filme of filmesPopulares; track filme.id) {
+            <div class="item-filme">
+              <ion-card (click)="verDetalhes(filme.id, 'movie')" appHoverZoom class="card-filme-home">
+                <div class="poster-wrapper">
+                  <img [src]="getPoster(filme.poster_path)" [alt]="filme.title || filme.name"/>
+                </div>
+                <ion-card-header>
+                  <ion-card-title>{{ filme.title || filme.name }}</ion-card-title>
+                  <ion-card-subtitle>
+                    <ion-icon name="star" color="warning"></ion-icon>
+                    {{ filme.vote_average | number:'1.1-1' }}
+                  </ion-card-subtitle>
+                </ion-card-header>
+              </ion-card>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="secao-filmes">
+        <h2 class="titulo-secao">Séries de TV <span class="seta">></span></h2>
+        <div class="carrossel-horizontal">
+          @for (serie of seriesPopulares; track serie.id) {
+            <div class="item-filme">
+              <ion-card (click)="verDetalhes(serie.id, 'tv')" appHoverZoom class="card-filme-home">
+                <div class="poster-wrapper">
+                  <img [src]="getPoster(serie.poster_path)" [alt]="serie.name || serie.title"/>
+                </div>
+                <ion-card-header>
+                  <ion-card-title>{{ serie.name || serie.title }}</ion-card-title>
+                  <ion-card-subtitle>
+                    <ion-icon name="star" color="warning"></ion-icon>
+                    {{ serie.vote_average | number:'1.1-1' }}
+                  </ion-card-subtitle>
+                </ion-card-header>
+              </ion-card>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="secao-filmes">
+        <h2 class="titulo-secao">Adrenalina Pura: Ação <span class="seta">></span></h2>
+        <div class="carrossel-horizontal">
+          @for (filme of filmesAcao; track filme.id) {
+            <div class="item-filme">
+              <ion-card (click)="verDetalhes(filme.id, 'movie')" appHoverZoom class="card-filme-home">
+                <div class="poster-wrapper">
+                  <img [src]="getPoster(filme.poster_path)" [alt]="filme.title || filme.name"/>
+                </div>
+                <ion-card-header>
+                  <ion-card-title>{{ filme.title || filme.name }}</ion-card-title>
+                  <ion-card-subtitle>
+                    <ion-icon name="star" color="warning"></ion-icon>
+                    {{ filme.vote_average | number:'1.1-1' }}
+                  </ion-card-subtitle>
+                </ion-card-header>
+              </ion-card>
+            </div>
+          }
+        </div>
+      </div>
+
+    </div>
+
+  }
 
 </ion-content>

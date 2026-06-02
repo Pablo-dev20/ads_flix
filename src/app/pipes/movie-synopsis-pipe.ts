@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class MovieSynopsisPipe implements PipeTransform {
 
-  transform(value: string | null | undefined, limit: number = 100): string {
+  transform(value: string | null | undefined, limit: number = 150): string {
     if (!value) {
       return '';
     }

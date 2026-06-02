@@ -13,10 +13,10 @@
     <ion-searchbar
       placeholder="Digite o nome do filme..."
       animated="true"
+      [value]="termoInicial"
       (ionInput)="buscarFilme($event)">
     </ion-searchbar>
 
-    <!-- Buscas recentes -->
     @if (!pesquisado && buscasRecentes.length > 0) {
       <div class="recentes">
         <p class="recentes-titulo">Buscas recentes</p>

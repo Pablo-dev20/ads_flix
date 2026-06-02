@@ -1,3 +1,18 @@
+// 🔥 O SEGREDO DO DESIGN CINEMA: Sobrescreve o fundo branco padrão do Ionic
+ion-content {
+  --background: #121212 !important;
+  background: #121212 !important;
+  color: #ffffff !important;
+}
+
+// Ajuste das listas nativas para herdar o fundo escuro
+ion-list, ion-item {
+  --background: transparent !important;
+  background: transparent !important;
+  --color: #ffffff !important;
+  color: #ffffff !important;
+}
+
 .poster-container {
   position: relative;
   height: 280px;
@@ -16,7 +31,7 @@
     left: 0;
     right: 0;
     height: 120px;
-    background: linear-gradient(transparent, var(--ion-background-color));
+    background: linear-gradient(transparent, #121212); // Transiciona perfeitamente para o fundo dark
   }
 
   .poster-img {
@@ -36,6 +51,7 @@
     font-size: 22px;
     font-weight: 600;
     margin-bottom: 8px;
+    color: #ffffff;
   }
 }
 
@@ -44,6 +60,13 @@
   flex-wrap: wrap;
   gap: 6px;
   margin-bottom: 12px;
+
+  ion-chip {
+    margin: 0;
+    --color: #aaa;
+    --border-color: #444;
+    --background: #1e1e1e;
+  }
 }
 
 .rating-row {
@@ -52,10 +75,10 @@
   gap: 6px;
   margin-bottom: 16px;
   font-size: 14px;
-  color: var(--ion-color-medium);
+  color: #aaa;
 
   strong {
-    color: var(--ion-text-color);
+    color: #ffffff;
     font-size: 18px;
   }
 }
@@ -65,32 +88,52 @@
   flex-direction: column;
   gap: 8px;
   margin-bottom: 8px;
+
+  ion-button {
+    margin: 0;
+  }
 }
 
 .cast-container {
   display: flex;
   overflow-x: auto;
-  gap: 12px;
+  gap: 14px;
   padding: 8px 16px 24px;
+  scroll-behavior: smooth;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+  }
 
   .cast-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 70px;
+    min-width: 75px;
+    flex-shrink: 0; // 🔥 Não deixa a imagem esmagar no loop do *ngFor
 
     ion-avatar {
-      width: 56px;
-      height: 56px;
-      margin-bottom: 4px;
+      width: 60px;
+      height: 60px;
+      margin-bottom: 6px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+
+      img {
+        object-fit: cover;
+      }
     }
 
     .actor-name {
+      color: #ffffff;
       font-size: 11px;
       font-weight: 500;
       text-align: center;
       margin: 0;
-      width: 70px;
+      width: 75px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -98,10 +141,10 @@
 
     .actor-role {
       font-size: 10px;
-      color: var(--ion-color-medium);
+      color: #888;
       text-align: center;
-      margin: 0;
-      width: 70px;
+      margin: 2px 0 0 0;
+      width: 75px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -114,7 +157,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: 80vh;
   gap: 16px;
-  color: var(--ion-color-medium);
+  color: #ffffff;
 }

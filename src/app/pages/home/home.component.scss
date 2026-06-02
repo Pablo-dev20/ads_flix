@@ -1,6 +1,9 @@
+// 1. Topbar e Navegação Superior
 .navbar {
   --background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
 }
 
 .navbar-title {
@@ -9,56 +12,22 @@
   letter-spacing: 0.5px;
 }
 
-ion-grid {
-  padding: 4px;
+.busca-topo {
+  --background: #1e1e1e;
+  --color: #020101;
+  --placeholder-color: #777;
+  --border-radius: 8px;
+  max-width: 250px;
+  margin-right: 8px;
 }
 
-ion-col {
-  padding: 4px;
-}
-
-ion-card {
-  margin: 0;
-  border-radius: 8px;
-  overflow: hidden;
-  cursor: pointer;
-  box-shadow: none;
-
-  .poster-wrapper {
-    width: 100%;
-    padding-top: 150%;
-    position: relative;
-    overflow: hidden;
-
-    img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-
-  ion-card-header {
-    padding: 6px 8px 8px;
-
-    ion-card-title {
-      font-size: 12px;
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    ion-card-subtitle {
-      font-size: 11px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      margin-top: 2px;
-    }
-  }
+// 2. Containers Gerais e Loading
+.container-home {
+  background: #121212;
+  min-height: 100%;
+  margin-top: -15px; // Cria a sobreposição perfeita no banner
+  position: relative;
+  z-index: 3;
 }
 
 .loading-container {
@@ -66,6 +35,171 @@ ion-card {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: 80vh;
   gap: 16px;
+  color: #ffffff; // CORRIGIDO: Texto de volta para branco
+}
+
+// 3. Estilização das Seções por Tópicos (Netflix Style)
+.secao-filmes {
+  margin-bottom: 25px;
+
+  .titulo-secao {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 8px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    .seta {
+      font-size: 14px;
+      color: #e50914;
+      margin-left: 6px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    &:hover .seta {
+      opacity: 1;
+    }
+  }
+}
+
+// 4. O Carrossel Horizontal Mágico
+.carrossel-horizontal {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  padding-bottom: 10px;
+  padding-left: 8px;
+  scroll-behavior: smooth;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+// 5. Estrutura de cada Card dentro do Carrossel
+.item-filme {
+  display: inline-block;
+  width: 150px;
+  margin-right: 12px;
+  flex-shrink: 0;
+
+  .card-filme-home {
+    margin: 0;
+    background: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+
+    .poster-wrapper {
+      width: 100%;
+      height: 210px;
+      position: relative;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+    }
+
+    ion-card-header {
+      padding: 8px;
+      background: #1a1a1a;
+
+      ion-card-title {
+        color: #fff;
+        font-size: 12px;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      ion-card-subtitle {
+        font-size: 11px;
+        color: #aaa;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-top: 4px;
+      }
+    }
+  }
+}
+
+// 🔥 CORRIGIDO: Movido para FORA do .item-filme para funcionar perfeitamente
+.hero-banner {
+  width: 100%;
+  height: 48vh; 
+  background-size: cover;
+  background-position: center top;
+  position: relative;
+  overflow: hidden;
+
+  .hero-overlay {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(18, 18, 18, 0.95) 25%, rgba(18, 18, 18, 0.4) 60%, rgba(18, 18, 18, 0) 100%),
+                linear-gradient(to top, rgba(18, 18, 18, 1) 0%, rgba(18, 18, 18, 0) 50%);
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-content {
+    max-width: 550px;
+    padding: 0 30px;
+    color: #ffffff;
+    z-index: 2;
+
+    .hero-tag {
+      color: #e50914; // Tag vermelha para dar destaque
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+
+    .hero-title {
+      font-size: 32px;
+      font-weight: 800;
+      margin: 0 0 10px 0;
+      line-height: 1.1;
+      white-space: normal;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero-description {
+      font-size: 13px;
+      color: #ccc;
+      line-height: 1.4;
+      margin-bottom: 18px;
+      white-space: normal;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    }
+
+    .btn-assistir {
+      --border-radius: 4px;
+      font-weight: bold;
+      font-size: 14px;
+      --box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+    }
+  }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router'; // 🔥 Importado o Router
 import { TmdbService } from '../../services/tmdb';
 import { SHARED_IMPORTS } from '../../shared.import';
 import { MovieSynopsisPipe } from '../../pipes/movie-synopsis-pipe';
@@ -20,9 +20,11 @@ export class MovieDetailPage implements OnInit {
   trailer: any = null;
   isLoading = true;
   isFavorite = false;
+  isTvShow = false; // 🔥 Flag para identificar se é série
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router, // 🔥 Injetado o Router
     private tmdb: TmdbService
   ) {
     addIcons({ heart, heartOutline, star, logoYoutube });
@@ -30,12 +32,20 @@ export class MovieDetailPage implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    if (id) this.loadMovie(+id);
+
+    // 🔥 Verifica se é série olhando para a URL do navegador
+    this.isTvShow = this.router.url.includes('/tv/');
+
+    if (id) this.loadMedia(+id);
   }
 
-  loadMovie(id: number) {
+  loadMedia(id: number) {
     this.isLoading = true;
-    this.tmdb.getMovie(id).subscribe({
+
+    // 🔥 Busca do endpoint correto baseado no tipo de mídia
+    const request$ = this.isTvShow ? this.tmdb.getTvShow(id) : this.tmdb.getMovie(id);
+
+    request$.subscribe({
       next: (data: any) => {
         this.movie = data;
         this.cast = data.credits?.cast?.slice(0, 8) || [];
@@ -59,10 +69,16 @@ export class MovieDetailPage implements OnInit {
   }
 
   getRuntime(): string {
-    if (!this.movie?.runtime) return '';
-    const h = Math.floor(this.movie.runtime / 60);
-    const m = this.movie.runtime % 60;
-    return `${h}h ${m}m`;
+    if (this.isTvShow) {
+      if (!this.movie?.number_of_seasons) return '';
+      const temporadas = this.movie.number_of_seasons;
+      return `${temporadas} ${temporadas === 1 ? 'Temporada' : 'Temporadas'}`;
+    } else {
+      if (!this.movie?.runtime) return '';
+      const h = Math.floor(this.movie.runtime / 60);
+      const m = this.movie.runtime % 60;
+      return `${h}h ${m}m`;
+    }
   }
 
   openTrailer() {

@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core'; // <-- Importado o OnInit
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { RouterLink, ActivatedRoute } from '@angular/router'; // <-- Importado o ActivatedRoute
 import { TmdbService } from '../../services/tmdb';
 import {
   IonContent, IonHeader, IonTitle, IonToolbar, IonSearchbar,
   IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardTitle,
-  IonCardSubtitle, IonSpinner, IonItem, IonLabel, IonImg,
+  IonCardSubtitle, IonSpinner, IonItem, IonLabel,
   IonChip, IonIcon, IonButtons, IonMenuButton
-} from '@ionic/angular/standalone';
+} from '@ionic/angular/standalone'; // <-- Removido o IonImg daqui
 import { addIcons } from 'ionicons';
 import { timeOutline, closeCircle } from 'ionicons/icons';
 import { HoverZoom } from '../../directives/hover-zoom';
@@ -21,20 +21,35 @@ import { HoverZoom } from '../../directives/hover-zoom';
   imports: [
     IonContent, IonHeader, IonTitle, IonToolbar, IonSearchbar,
     IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardTitle,
-    IonCardSubtitle, IonSpinner, IonItem, IonLabel, IonImg,
+    IonCardSubtitle, IonSpinner, IonItem, IonLabel,
     IonChip, IonIcon, IonButtons, IonMenuButton,
-    CommonModule, FormsModule, RouterLink, HoverZoom
+    CommonModule, FormsModule, RouterLink, HoverZoom // <-- Removido o IonImg daqui
   ]
 })
-export class BuscarPage {
+export class BuscarPage implements OnInit { // <-- Agora implementa OnInit
   public resultados: any[] = [];
   public carregando: boolean = false;
   public pesquisado: boolean = false;
   public buscasRecentes: string[] = [];
+  public termoInicial: string = ''; // <-- Nova variável para segurar o texto da Home
 
-  constructor(private tmdb: TmdbService) {
+  constructor(
+    private tmdb: TmdbService,
+    private route: ActivatedRoute // <-- Injetado o leitor de rotas aqui
+  ) {
     addIcons({ timeOutline, closeCircle });
     this.carregarRecentes();
+  }
+
+  ngOnInit() {
+    // Escuta a URL para ver se veio algum termo de busca da Home
+    this.route.queryParams.subscribe(params => {
+      const q = params['q'];
+      if (q && q.trim() !== '') {
+        this.termoInicial = q.trim();
+        this.buscarPorTermo(this.termoInicial); // Executa a busca direto
+      }
+    });
   }
 
   carregarRecentes() {

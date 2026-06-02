@@ -29,15 +29,45 @@ export class TmdbService {
     });
   }
 
+  // DETALHES DO FILME: Rota específica para filmes
   getMovie(id: number): Observable<any> {
     return this.http.get(`${this.BASE_URL}/movie/${id}`, {
       params: this.getParams({ append_to_response: 'credits,videos' })
     });
   }
 
+  // DETALHES DA SÉRIE: Resolvendo o erro 404 ao clicar em Séries!
+  getTvShow(id: number): Observable<any> {
+    return this.http.get(`${this.BASE_URL}/tv/${id}`, {
+      params: this.getParams({ append_to_response: 'credits,videos' })
+    });
+  }
+
+  // CARROSSEL: Filmes Populares
   getPopular(page = 1): Observable<any> {
     return this.http.get(`${this.BASE_URL}/movie/popular`, {
       params: this.getParams({ page })
+    });
+  }
+
+  // CARROSSEL: Filmes e Séries em Alta (Destaques da semana)
+  getTrending(page = 1): Observable<any> {
+    return this.http.get(`${this.BASE_URL}/trending/all/week`, {
+      params: this.getParams({ page })
+    });
+  }
+
+  //  Puxa a lista de Séries Populares para a Home
+  getPopularSeries(page = 1): Observable<any> {
+    return this.http.get(`${this.BASE_URL}/tv/popular`, {
+      params: this.getParams({ page })
+    });
+  }
+
+  // CARROSSEL: Filtro por Gênero (Ação = 28)
+  getMoviesByGenre(genreId = 28, page = 1): Observable<any> { // Ajustado default para page = 1
+    return this.http.get(`${this.BASE_URL}/discover/movie`, {
+      params: this.getParams({ with_genres: genreId, page })
     });
   }
 

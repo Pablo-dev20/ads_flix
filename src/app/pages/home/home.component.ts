@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { TmdbService } from '../../services/tmdb';
 import { SHARED_IMPORTS } from '../../shared.import';
 import { addIcons } from 'ionicons';
-import { star, search } from 'ionicons/icons';
+import { star, search, play } from 'ionicons/icons'; // Adicionado o ícone 'play'
 import { HoverZoom } from '../../directives/hover-zoom';
 
 @Component({
@@ -15,39 +15,90 @@ import { HoverZoom } from '../../directives/hover-zoom';
 })
 export class HomeComponent implements OnInit {
 
-  filmes: any[] = [];
-  isLoading = true;
+  public filmesEmAlta: any[] = [];
+  public filmesPopulares: any[] = [];
+  public seriesPopulares: any[] = []; 
+  public filmesAcao: any[] = [];       
+  public isLoading = true;
 
   constructor(
     private tmdb: TmdbService,
     private router: Router
   ) {
-    addIcons({ star, search });
+    addIcons({ star, search, play });
   }
 
   ngOnInit() {
-    this.loadFilmes();
+    this.loadCatalogo();
   }
 
-  loadFilmes() {
+  loadCatalogo() {
     this.isLoading = true;
-    this.tmdb.getPopular().subscribe({
-      next: (data: any) => {
-        this.filmes = data.results;
-        this.isLoading = false;
+
+    // 1. Em Alta
+    this.tmdb.getTrending().subscribe({
+      next: (data: any) => { 
+        this.filmesEmAlta = data.results || []; 
+        this.checarCarregamento(); 
       },
-      error: () => {
-        this.isLoading = false;
-      }
+      error: () => this.isLoading = false
     });
+
+    // 2. Populares
+    this.tmdb.getPopular().subscribe({
+      next: (data: any) => { 
+        this.filmesPopulares = data.results || []; 
+        this.checarCarregamento(); 
+      },
+      error: () => this.isLoading = false
+    });
+
+    // 3. Séries Populares
+    this.tmdb.getPopularSeries().subscribe({
+      next: (data: any) => { 
+        this.seriesPopulares = data.results || []; 
+        this.checarCarregamento(); 
+      },
+      error: () => this.isLoading = false
+    });
+
+    // 4. Filmes de Ação
+    this.tmdb.getMoviesByGenre(28).subscribe({
+      next: (data: any) => { 
+        this.filmesAcao = data.results || []; 
+        this.checarCarregamento(); 
+      },
+      error: () => this.isLoading = false
+    });
+  }
+
+  checarCarregamento() {
+    if (
+      this.filmesEmAlta.length > 0 && 
+      this.filmesPopulares.length > 0 && 
+      this.seriesPopulares.length > 0 && 
+      this.filmesAcao.length > 0
+    ) {
+      this.isLoading = false;
+    }
+  }
+
+  aoBuscar(event: any) {
+    const valor = event.target.value;
+    if (valor && valor.trim() !== '') {
+      this.router.navigate(['/buscar'], { queryParams: { q: valor.trim() } });
+    }
   }
 
   getPoster(path: string) {
     return this.tmdb.getImageUrl(path, 'w500');
   }
 
-  verDetalhes(id: number) {
-    this.router.navigate(['/movie', id]);
+  getOriginalPoster(path: string) {
+    return this.tmdb.getImageUrl(path, 'original');
   }
 
+  verDetalhes(id: number, type: 'movie' | 'tv' = 'movie') {
+  this.router.navigate([`/${type}`, id]);
+}
 }
