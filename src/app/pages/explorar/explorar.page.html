@@ -1,0 +1,54 @@
+<ion-header class="ion-no-border header-premium">
+  <ion-toolbar class="navbar">
+    <ion-buttons slot="start">
+      <ion-button (click)="voltar()" class="btn-voltar">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+    <ion-title class="navbar-title">
+      <span class="logo-brand">ADS<span class="logo-sub">Flix</span></span>
+      <span class="categoria-badge">{{ tituloCategoria }}</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark">
+
+<ion-content color="dark">
+  <div class="container-explorar ion-padding">
+    
+    <div class="grid-vertical">
+      @for (item of itens; track item.id) {
+        <div class="item-grid">
+          <ion-card (click)="verDetalhes(item)" appHoverZoom class="card-filme-explorar">
+            <div class="poster-wrapper">
+              <img [src]="getPoster(item.poster_path)" [alt]="item.title || item.name"/>
+            </div>
+            <ion-card-header>
+              <ion-card-title>{{ item.title || item.name }}</ion-card-title>
+              <ion-card-subtitle>
+                <ion-icon name="star" color="warning"></ion-icon>
+                {{ item.vote_average | number:'1.1-1' }}
+              </ion-card-subtitle>
+            </ion-card-header>
+          </ion-card>
+        </div>
+      }
+    </div>
+
+    @if (itens.length > 0) {
+      <div class="botoes-acao">
+        <ion-button expand="block" color="danger" (click)="carregarMais()" [disabled]="isLoading">
+          @if (isLoading) {
+            <ion-spinner name="crescent" slot="start"></ion-spinner>
+            Carregando mais...
+          } @else {
+            Carregar Mais
+          }
+        </ion-button>
+      </div>
+    }
+
+  </div>
+</ion-content>

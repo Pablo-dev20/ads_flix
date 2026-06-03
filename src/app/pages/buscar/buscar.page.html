@@ -1,0 +1,83 @@
+<ion-header class="ion-no-border header-premium">
+  <ion-toolbar class="navbar">
+    <ion-buttons slot="start">
+      <ion-menu-button class="btn-menu"></ion-menu-button>
+    </ion-buttons>
+    
+    <ion-title class="navbar-title">
+      <span class="logo-brand">ADS<span class="logo-sub">Flix</span></span>
+      <span class="categoria-badge">Buscar</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark">
+  <div class="container-buscar ion-padding">
+
+    <ion-searchbar
+      placeholder="Buscar por títulos, gêneros..."
+      animated="true"
+      [value]="termoInicial"
+      (ionInput)="buscarFilme($event)"
+      class="busca-premium">
+    </ion-searchbar>
+
+    @if (!pesquisado && buscasRecentes.length > 0) {
+      <div class="recentes">
+        <p class="recentes-titulo">Buscas recentes</p>
+        <div class="chips">
+          @for (termo of buscasRecentes; track termo) {
+            <ion-chip (click)="buscarPorTermo(termo)" class="chip-premium">
+              <ion-icon name="time-outline"></ion-icon>
+              <ion-label>{{ termo }}</ion-label>
+              <ion-icon name="close-circle" (click)="$event.stopPropagation(); removerRecente(termo)"></ion-icon>
+            </ion-chip>
+          }
+        </div>
+      </div>
+    }
+
+    @if (carregando) {
+      <div class="loading-container">
+        <ion-spinner name="crescent" color="danger"></ion-spinner>
+        <p>Buscando no catálogo...</p>
+      </div>
+    } @else {
+
+      @if (resultados.length > 0) {
+        <ion-grid class="ion-no-padding">
+          <ion-row>
+            @for (filme of resultados; track filme.id) {
+              <ion-col size="6" size-md="4" size-lg="3">
+                <ion-card (click)="verDetalhes(filme)" appHoverZoom class="card-buscar">
+                  <div class="poster-wrapper">
+                    <img [src]="getPoster(filme.poster_path)" [alt]="filme.title || filme.name"/>
+                  </div>
+                  <ion-card-header>
+                    <ion-card-title>{{ filme.title || filme.name }}</ion-card-title>
+                    <ion-card-subtitle>
+                      <ion-icon name="star" color="warning" class="mini-star"></ion-icon>
+                      {{ filme.vote_average | number:'1.1-1' }} · {{ (filme.release_date || filme.first_air_date) | date:'yyyy' }}
+                    </ion-card-subtitle>
+                  </ion-card-header>
+                </ion-card>
+              </ion-col>
+            }
+          </ion-row>
+        </ion-grid>
+      } @else if (pesquisado) {
+        <div class="vazio-container">
+          <ion-icon name="alert-circle-outline" color="medium"></ion-icon>
+          <p>Nenhum resultado encontrado para a sua busca. 🎬</p>
+        </div>
+      } @else if (buscasRecentes.length === 0) {
+        <div class="vazio-container">
+          <ion-icon name="search-outline" color="danger" class="search-placeholder-icon"></ion-icon>
+          <p>Descubra seu próximo filme ou série digitando acima!</p>
+        </div>
+      }
+
+    }
+
+  </div>
+</ion-content>

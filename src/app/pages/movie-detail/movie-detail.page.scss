@@ -1,13 +1,61 @@
+// 🔥 CONFIGURAÇÃO PREMIUM DA NAVBAR (Glassmorphism de Detalhes)
+.header-premium {
+  position: absolute; // Faz a imagem de fundo (.backdrop-img) passar por baixo
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.navbar {
+  --background: rgba(18, 18, 18, 0.65) !important; // Mais translúcido para valorizar o banner atrás
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  padding: 4px 8px;
+
+  .btn-voltar {
+    --color: #ffffff;
+    font-size: 20px;
+  }
+  
+  .btn-favorito {
+    font-size: 20px;
+  }
+}
+
+.navbar-title {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+// Força o fundo escuro idêntico ao da Home
+ion-content {
+  --background: #121212 !important;
+  background: #121212 !important;
+  color: #ffffff !important;
+}
+
+// Ajuste das listas nativas para herdar o fundo escuro
+ion-list, ion-item {
+  --background: transparent !important;
+  background: transparent !important;
+  --color: #ffffff !important;
+  color: #ffffff !important;
+}
+
 .poster-container {
   position: relative;
-  height: 280px;
+  height: 320px; // Aumentado ligeiramente para criar mais impacto com a navbar flutuante
   overflow: hidden;
 
   .backdrop-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(0.4);
+    filter: brightness(0.45); // Ajustado para dar mais contraste com as letras superiores
   }
 
   .poster-overlay {
@@ -15,27 +63,30 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 120px;
-    background: linear-gradient(transparent, var(--ion-background-color));
+    height: 140px;
+    background: linear-gradient(transparent, #121212); // Transiciona perfeitamente para o fundo dark
   }
 
   .poster-img {
     position: absolute;
-    bottom: -40px;
+    bottom: -30px;
     left: 16px;
     width: 110px;
     border-radius: 10px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    z-index: 4;
   }
 }
 
 .movie-info {
-  padding: 50px 16px 16px;
+  padding: 40px 16px 16px; // Ajustado espaçamento superior
 
   h1 {
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 8px;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #ffffff;
+    line-height: 1.2;
   }
 }
 
@@ -43,19 +94,28 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+
+  ion-chip {
+    margin: 0;
+    --color: #bbb;
+    --border-color: #333;
+    --background: #1e1e1e;
+    font-size: 12px;
+    font-weight: 500;
+  }
 }
 
 .rating-row {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   font-size: 14px;
-  color: var(--ion-color-medium);
+  color: #aaa;
 
   strong {
-    color: var(--ion-text-color);
+    color: #ffffff;
     font-size: 18px;
   }
 }
@@ -63,34 +123,57 @@
 .action-buttons {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 8px;
+  gap: 10px;
+  margin-bottom: 12px;
+
+  ion-button {
+    margin: 0;
+    font-weight: 600;
+    --border-radius: 6px;
+  }
 }
 
+// Carrossel do elenco premium
 .cast-container {
   display: flex;
   overflow-x: auto;
-  gap: 12px;
-  padding: 8px 16px 24px;
+  gap: 14px;
+  padding: 8px 16px 28px;
+  scroll-behavior: smooth;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+  }
 
   .cast-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 70px;
+    min-width: 75px;
+    flex-shrink: 0;
 
     ion-avatar {
-      width: 56px;
-      height: 56px;
-      margin-bottom: 4px;
+      width: 60px;
+      height: 60px;
+      margin-bottom: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+
+      img {
+        object-fit: cover;
+      }
     }
 
     .actor-name {
+      color: #ffffff;
       font-size: 11px;
       font-weight: 500;
       text-align: center;
       margin: 0;
-      width: 70px;
+      width: 75px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -98,10 +181,10 @@
 
     .actor-role {
       font-size: 10px;
-      color: var(--ion-color-medium);
+      color: #888;
       text-align: center;
-      margin: 0;
-      width: 70px;
+      margin: 2px 0 0 0;
+      width: 75px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -114,7 +197,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: 80vh;
   gap: 16px;
-  color: var(--ion-color-medium);
+  color: #ffffff;
 }

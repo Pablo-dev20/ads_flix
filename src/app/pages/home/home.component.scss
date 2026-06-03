@@ -1,0 +1,247 @@
+// 1. Topbar e Navegação Superior Premium
+.header-premium {
+  position: absolute; // 🔥 Faz o banner do topo passar por baixo da navbar perfeitamente
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.navbar {
+  // 🔥 Efeito Glassmorphism: Fundo escuro translúcido com desfoque de vidro
+  --background: rgba(18, 18, 18, 0.75) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 4px 12px;
+  transition: background 0.3s ease;
+
+  .btn-menu {
+    --color: #ffffff;
+    font-size: 22px;
+  }
+}
+
+// Estilização da Logo Estilo Streaming
+.navbar-title {
+  padding-inline: 8px;
+  
+  .logo-brand {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: #e50914; // Vermelho Netflix no "ADS"
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    
+    .logo-sub {
+      color: #ffffff; // Branco puro no "Flix"
+      font-weight: 700;
+    }
+  }
+}
+
+// Barra de Busca Minimalista e Expansível
+.busca-topo {
+  --background: rgba(255, 255, 255, 0.1);
+  --color: #ffffff;
+  --placeholder-color: #aaaaaa;
+  --border-radius: 20px; // Deixa ela bem oval e moderna
+  --icon-color: #e50914; // Lupa vermelha estilizada
+  max-width: 140px; // Um pouco mais compacta no mobile por padrão
+  transition: max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s;
+  margin: 0;
+  padding: 0;
+
+  // 🔥 Efeito de foco: quando clica para digitar, ela expande de tamanho suavemente
+  &:focus-within {
+    max-width: 240px;
+    --background: rgba(255, 255, 255, 0.18);
+  }
+
+  .searchbar-input-container {
+    height: 36px;
+  }
+}
+
+// 2. Containers Gerais e Loading
+.container-home {
+  background: #121212;
+  min-height: 100%;
+  margin-top: -15px; // Cria a sobreposição perfeita no banner
+  position: relative;
+  z-index: 3;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  gap: 16px;
+  color: #ffffff;
+}
+
+// 3. Estilização das Seções por Tópicos (Netflix Style)
+.secao-filmes {
+  margin-bottom: 25px;
+
+  .titulo-secao {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 8px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    .seta {
+      font-size: 14px;
+      color: #e50914;
+      margin-left: 6px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    &:hover .seta {
+      opacity: 1;
+    }
+  }
+}
+
+// 4. O Carrossel Horizontal Mágico
+.carrossel-horizontal {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  padding-bottom: 10px;
+  padding-left: 8px;
+  scroll-behavior: smooth;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+// 5. Estrutura de cada Card dentro do Carrossel
+.item-filme {
+  display: inline-block;
+  width: 150px;
+  margin-right: 12px;
+  flex-shrink: 0;
+
+  .card-filme-home {
+    margin: 0;
+    background: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+
+    .poster-wrapper {
+      width: 100%;
+      height: 210px;
+      position: relative;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+    }
+
+    ion-card-header {
+      padding: 8px;
+      background: #1a1a1a;
+
+      ion-card-title {
+        color: #fff;
+        font-size: 12px;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      ion-card-subtitle {
+        font-size: 11px;
+        color: #aaa;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-top: 4px;
+      }
+    }
+  }
+}
+
+// 6. Banner de Destaque Dinâmico (Hero Banner)
+.hero-banner {
+  width: 100%;
+  height: 52vh; // Aumentado levemente para acomodar o espaço da navbar
+  background-size: cover;
+  background-position: center top;
+  position: relative;
+  overflow: hidden;
+
+  .hero-overlay {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(18, 18, 18, 0.95) 25%, rgba(18, 18, 18, 0.4) 60%, rgba(18, 18, 18, 0) 100%),
+                linear-gradient(to top, rgba(18, 18, 18, 1) 0%, rgba(18, 18, 18, 0) 50%);
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-content {
+    max-width: 550px;
+    padding: 75px 30px 0 30px; // 🔥 OTIMIZAÇÃO: Espaço superior para o texto não ficar colado atrás da navbar
+    color: #ffffff;
+    z-index: 2;
+
+    .hero-tag {
+      color: #e50914;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+
+    .hero-title {
+      font-size: 32px;
+      font-weight: 800;
+      margin: 0 0 10px 0;
+      line-height: 1.1;
+      white-space: normal;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero-description {
+      font-size: 13px;
+      color: #ccc;
+      line-height: 1.4;
+      margin-bottom: 18px;
+      white-space: normal;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    }
+
+    .btn-assistir {
+      --border-radius: 4px;
+      font-weight: bold;
+      font-size: 14px;
+      --box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+    }
+  }
+}

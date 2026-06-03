@@ -3,7 +3,7 @@
 Repositório dedicado ao **ADS Flix**, o projeto prático da **AV1** na disciplina de **Desenvolvimento Mobile** (UNINASSAU). O aplicativo é uma plataforma de catálogo e busca de filmes que consome dados em tempo real de uma API pública, aplicando os conceitos de componentização, controle de fluxo e diretivas customizadas.
 
 ## 🔗 Link do Projeto (Vercel)
-👉 [Insira_Aqui_O_Link_Da_Vercel]
+👉 [https://ads-flix.vercel.app/]
 
 ---
 
