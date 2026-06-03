@@ -1,24 +1,66 @@
-// 1. Topbar e Navegação Superior
+// 1. Topbar e Navegação Superior Premium
+.header-premium {
+  position: absolute; // 🔥 Faz o banner do topo passar por baixo da navbar perfeitamente
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
 .navbar {
-  --background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  display: flex;
-  align-items: center;
+  // 🔥 Efeito Glassmorphism: Fundo escuro translúcido com desfoque de vidro
+  --background: rgba(18, 18, 18, 0.75) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 4px 12px;
+  transition: background 0.3s ease;
+
+  .btn-menu {
+    --color: #ffffff;
+    font-size: 22px;
+  }
 }
 
+// Estilização da Logo Estilo Streaming
 .navbar-title {
-  font-weight: 700;
-  font-size: 18px;
-  letter-spacing: 0.5px;
+  padding-inline: 8px;
+  
+  .logo-brand {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: #e50914; // Vermelho Netflix no "ADS"
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    
+    .logo-sub {
+      color: #ffffff; // Branco puro no "Flix"
+      font-weight: 700;
+    }
+  }
 }
 
+// Barra de Busca Minimalista e Expansível
 .busca-topo {
-  --background: #1e1e1e;
-  --color: #020101;
-  --placeholder-color: #777;
-  --border-radius: 8px;
-  max-width: 250px;
-  margin-right: 8px;
+  --background: rgba(255, 255, 255, 0.1);
+  --color: #ffffff;
+  --placeholder-color: #aaaaaa;
+  --border-radius: 20px; // Deixa ela bem oval e moderna
+  --icon-color: #e50914; // Lupa vermelha estilizada
+  max-width: 140px; // Um pouco mais compacta no mobile por padrão
+  transition: max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s;
+  margin: 0;
+  padding: 0;
+
+  // 🔥 Efeito de foco: quando clica para digitar, ela expande de tamanho suavemente
+  &:focus-within {
+    max-width: 240px;
+    --background: rgba(255, 255, 255, 0.18);
+  }
+
+  .searchbar-input-container {
+    height: 36px;
+  }
 }
 
 // 2. Containers Gerais e Loading
@@ -37,7 +79,7 @@
   justify-content: center;
   height: 80vh;
   gap: 16px;
-  color: #ffffff; // CORRIGIDO: Texto de volta para branco
+  color: #ffffff;
 }
 
 // 3. Estilização das Seções por Tópicos (Netflix Style)
@@ -144,10 +186,10 @@
   }
 }
 
-// 🔥 CORRIGIDO: Movido para FORA do .item-filme para funcionar perfeitamente
+// 6. Banner de Destaque Dinâmico (Hero Banner)
 .hero-banner {
   width: 100%;
-  height: 48vh; 
+  height: 52vh; // Aumentado levemente para acomodar o espaço da navbar
   background-size: cover;
   background-position: center top;
   position: relative;
@@ -164,12 +206,12 @@
 
   .hero-content {
     max-width: 550px;
-    padding: 0 30px;
+    padding: 75px 30px 0 30px; // 🔥 OTIMIZAÇÃO: Espaço superior para o texto não ficar colado atrás da navbar
     color: #ffffff;
     z-index: 2;
 
     .hero-tag {
-      color: #e50914; // Tag vermelha para dar destaque
+      color: #e50914;
       font-size: 12px;
       font-weight: bold;
       text-transform: uppercase;

@@ -31,4 +31,12 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/sobre/sobre.page').then((m) => m.SobrePage),
   },
+  {
+  path: 'explorar/:categoria',
+  loadComponent: () => import('./pages/explorar/explorar.page').then(m => m.ExplorarPage)
+  },  {
+    path: 'explorar',
+    loadComponent: () => import('./pages/explorar/explorar.page').then( m => m.ExplorarPage)
+  }
+
 ];

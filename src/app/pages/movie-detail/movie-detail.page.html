@@ -1,11 +1,16 @@
-<ion-header>
-  <ion-toolbar color="dark">
+<ion-header class="ion-no-border header-premium">
+  <ion-toolbar class="navbar">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
+      <!-- Botão de voltar minimalista de cinema -->
+      <ion-back-button defaultHref="/home" text="" class="btn-voltar"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ movie?.title || movie?.name || 'Detalhes' }}</ion-title>
+    
+    <ion-title class="navbar-title">
+      {{ movie?.title || movie?.name || 'Detalhes' }}
+    </ion-title>
+
     <ion-buttons slot="end">
-      <ion-button (click)="toggleFavorite()">
+      <ion-button (click)="toggleFavorite()" class="btn-favorito">
         <ion-icon [name]="isFavorite ? 'heart' : 'heart-outline'" color="danger"></ion-icon>
       </ion-button>
     </ion-buttons>

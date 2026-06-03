@@ -1,20 +1,25 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="dark" class="navbar">
+<ion-header class="ion-no-border header-premium">
+  <ion-toolbar class="navbar">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button class="btn-menu"></ion-menu-button>
     </ion-buttons>
-    <ion-title class="navbar-title">Buscar</ion-title>
+    
+    <ion-title class="navbar-title">
+      <span class="logo-brand">ADS<span class="logo-sub">Flix</span></span>
+      <span class="categoria-badge">Buscar</span>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <div class="ion-padding">
+<ion-content color="dark">
+  <div class="container-buscar ion-padding">
 
     <ion-searchbar
-      placeholder="Digite o nome do filme..."
+      placeholder="Buscar por títulos, gêneros..."
       animated="true"
       [value]="termoInicial"
-      (ionInput)="buscarFilme($event)">
+      (ionInput)="buscarFilme($event)"
+      class="busca-premium">
     </ion-searchbar>
 
     @if (!pesquisado && buscasRecentes.length > 0) {
@@ -22,7 +27,7 @@
         <p class="recentes-titulo">Buscas recentes</p>
         <div class="chips">
           @for (termo of buscasRecentes; track termo) {
-            <ion-chip (click)="buscarPorTermo(termo)">
+            <ion-chip (click)="buscarPorTermo(termo)" class="chip-premium">
               <ion-icon name="time-outline"></ion-icon>
               <ion-label>{{ termo }}</ion-label>
               <ion-icon name="close-circle" (click)="$event.stopPropagation(); removerRecente(termo)"></ion-icon>
@@ -33,23 +38,26 @@
     }
 
     @if (carregando) {
-      <div class="ion-text-center ion-padding">
+      <div class="loading-container">
         <ion-spinner name="crescent" color="danger"></ion-spinner>
-        <p>Buscando filmes...</p>
+        <p>Buscando no catálogo...</p>
       </div>
     } @else {
 
       @if (resultados.length > 0) {
-        <ion-grid>
+        <ion-grid class="ion-no-padding">
           <ion-row>
             @for (filme of resultados; track filme.id) {
               <ion-col size="6" size-md="4" size-lg="3">
-                <ion-card [routerLink]="['/movie', filme.id]" appHoverZoom>
-                  <img [src]="getPoster(filme.poster_path)" [alt]="filme.title || filme.name"/>
+                <ion-card (click)="verDetalhes(filme)" appHoverZoom class="card-buscar">
+                  <div class="poster-wrapper">
+                    <img [src]="getPoster(filme.poster_path)" [alt]="filme.title || filme.name"/>
+                  </div>
                   <ion-card-header>
                     <ion-card-title>{{ filme.title || filme.name }}</ion-card-title>
                     <ion-card-subtitle>
-                      {{ filme.release_date || filme.first_air_date | date:'yyyy' }}
+                      <ion-icon name="star" color="warning" class="mini-star"></ion-icon>
+                      {{ filme.vote_average | number:'1.1-1' }} · {{ (filme.release_date || filme.first_air_date) | date:'yyyy' }}
                     </ion-card-subtitle>
                   </ion-card-header>
                 </ion-card>
@@ -58,14 +66,14 @@
           </ion-row>
         </ion-grid>
       } @else if (pesquisado) {
-        <ion-item lines="none" class="ion-text-center">
-          <ion-label color="medium">
-            Nenhum filme encontrado. 🎬
-          </ion-label>
-        </ion-item>
+        <div class="vazio-container">
+          <ion-icon name="alert-circle-outline" color="medium"></ion-icon>
+          <p>Nenhum resultado encontrado para a sua busca. 🎬</p>
+        </div>
       } @else if (buscasRecentes.length === 0) {
-        <div class="ion-text-center ion-padding">
-          <p>Descubra filmes digitando acima!</p>
+        <div class="vazio-container">
+          <ion-icon name="search-outline" color="danger" class="search-placeholder-icon"></ion-icon>
+          <p>Descubra seu próximo filme ou série digitando acima!</p>
         </div>
       }
 

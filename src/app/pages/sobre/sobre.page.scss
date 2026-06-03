@@ -1,173 +1,197 @@
+// 🔥 CONFIGURAÇÃO PREMIUM DA NAVBAR (Glassmorphism)
+.header-premium {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
 .navbar {
-  --background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --background: rgba(18, 18, 18, 0.85) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 4px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+  --color: #ffffff;
 }
 
 .navbar-title {
-  font-weight: 700;
-  font-size: 18px;
-  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  
+  .logo-brand {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: #e50914;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    display: inline-block;
+    
+    .logo-sub {
+      color: #ffffff;
+      font-weight: 700;
+    }
+  }
+
+  .categoria-badge {
+    color: #aaa;
+    font-size: 13px;
+    font-weight: 500;
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: 2px solid rgba(255, 255, 255, 0.15);
+  }
 }
 
+// Força o tema escuro total
+ion-content {
+  --background: #121212 !important;
+  background: #121212 !important;
+}
+
+.container-sobre {
+  background: #121212;
+  min-height: 100%;
+  padding-top: 16px;
+}
+
+// Cabeçalho da página interna
 .header-section {
   text-align: center;
-  padding: 20px 0 30px 0;
-  margin-bottom: 20px;
-}
-
-.logo-sobre {
-  height: 120px;
-  width: 120px;
-  object-fit: contain;
-  margin-bottom: 15px;
+  padding: 24px 0 16px 0;
 }
 
 .titulo-principal {
-  font-size: 32px;
-  font-weight: 700;
-  margin: 10px 0 5px 0;
-  background: linear-gradient(135deg, #FF1E4C 0%, #9D4EDD 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: 36px;
+  font-weight: 800;
+  margin: 0px 0 6px 0;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  text-shadow: 0 4px 12px rgba(229, 9, 20, 0.2);
 }
 
 .subtitulo {
-  font-size: 14px;
-  color: var(--ion-color-medium);
+  font-size: 13px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   margin: 0;
+  font-weight: 500;
 }
 
+// 🔥 CARDS PREMIUM ESTILO DARK
 .card-sobre {
-  margin-bottom: 16px;
+  margin: 0 0 20px 0;
+  background: #1a1a1a;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.03);
 
   ion-card-header {
-    padding-bottom: 12px;
+    padding: 16px 16px 8px 16px;
 
     ion-card-title {
       font-size: 18px;
-      font-weight: 600;
-      color: var(--ion-color-dark);
+      font-weight: 700;
+      color: #ffffff;
     }
   }
 
   ion-card-content {
+    padding: 8px 16px 16px 16px;
+
     p {
       font-size: 14px;
       line-height: 1.6;
-      margin-bottom: 12px;
-      color: var(--ion-color-medium-shade);
+      margin-bottom: 14px;
+      color: #cccccc;
 
       &:last-child {
         margin-bottom: 0;
       }
 
       strong {
-        color: var(--ion-color-dark);
-      }
-    }
-
-    ul {
-      padding-left: 20px;
-      margin: 12px 0;
-
-      li {
-        font-size: 14px;
-        margin-bottom: 8px;
-        color: var(--ion-color-medium-shade);
-        line-height: 1.5;
+        color: #e50914; // Destaca os termos importantes em vermelho
       }
     }
   }
 }
 
+.aviso-destaque {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+// Listas internas estilizadas
 .disclaimer-list {
   list-style: none;
   padding-left: 0;
+  margin: 16px 0;
 
   li {
-    padding-left: 25px;
+    padding-left: 24px;
     position: relative;
     margin-bottom: 10px;
+    font-size: 14px;
+    color: #aaaaaa;
 
     &:before {
       content: "✓";
       position: absolute;
       left: 0;
-      color: #4CAF50;
+      color: #2ed573;
       font-weight: bold;
     }
-  }
-}
-
-.warning-text {
-  background: rgba(255, 30, 76, 0.05);
-  border-left: 4px solid #FF1E4C;
-  padding: 12px;
-  border-radius: 4px;
-  font-size: 13px;
-  margin-top: 12px !important;
-}
-
-.tech-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 16px;
-  margin: 12px 0;
-}
-
-.tech-item {
-  text-align: center;
-  padding: 12px;
-  background: var(--ion-color-light);
-  border-radius: 8px;
-  border: 1px solid var(--ion-color-step-150);
-
-  strong {
-    display: block;
-    font-size: 13px;
-    color: var(--ion-color-dark);
-    margin-bottom: 8px;
-  }
-
-  p {
-    font-size: 13px;
-    margin: 4px 0;
-    color: var(--ion-color-medium);
   }
 }
 
 .learning-list {
   list-style: none;
   padding-left: 0;
+  margin: 16px 0;
 
   li {
-    padding-left: 20px;
+    padding-left: 24px;
     position: relative;
     margin-bottom: 10px;
     font-size: 14px;
+    color: #aaaaaa;
+    line-height: 1.4;
 
     &:before {
       content: "→";
       position: absolute;
       left: 0;
-      color: #9D4EDD;
+      color: #e50914; // Setas vermelhas combinando com a marca
       font-weight: bold;
     }
   }
 }
 
+.warning-text {
+  background: rgba(229, 9, 20, 0.08);
+  border-left: 4px solid #e50914;
+  padding: 12px;
+  border-radius: 0 6px 6px 0;
+  font-size: 13px;
+  color: #ff4d4d !important;
+  margin-top: 16px !important;
+  font-weight: 500;
+}
+
+// Rodapé institucional
 .footer-section {
   text-align: center;
-  padding: 30px 0 20px 0;
-  border-top: 1px solid var(--ion-color-step-150);
-  margin-top: 30px;
+  padding: 24px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  margin-top: 32px;
 }
 
 .footer-text {
-  font-size: 12px;
-  color: var(--ion-color-medium);
-  margin: 0;
+  font-size: 11px;
+  color: #666;
+  letter-spacing: 0.3px;
 }

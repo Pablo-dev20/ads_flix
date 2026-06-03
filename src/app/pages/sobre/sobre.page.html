@@ -1,84 +1,81 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="dark" class="navbar">
+<ion-header class="ion-no-border header-premium">
+  <ion-toolbar class="navbar">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button class="btn-menu"></ion-menu-button>
     </ion-buttons>
-    <ion-title class="navbar-title">Sobre Nós</ion-title>
+    
+    <ion-title class="navbar-title">
+      <span class="logo-brand">ADS<span class="logo-sub">Flix</span></span>
+      <span class="categoria-badge">Sobre Nós</span>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <div class="ion-padding">
+<ion-content color="dark">
+  <div class="container-sobre ion-padding">
     
-    <!-- Logo e Título Principal -->
     <div class="header-section">
-      <img src="assets/icon/image.png" alt="ADS Flix Logo" class="logo-sobre">
       <h1 class="titulo-principal">ADS Flix</h1>
       <p class="subtitulo">Plataforma Educacional de Desenvolvimento</p>
     </div>
 
-    <!-- Card Objetivo Principal -->
     <ion-card class="card-sobre">
       <ion-card-header>
         <ion-card-title>Nosso Objetivo Principal</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <p>
-          O ADS Flix é um ecosistema dedicado ao <strong>aprendizado prático de desenvolvimento web</strong> 
+          O ADS Flix é um ecossistema dedicado ao <strong>aprendizado prático de desenvolvimento web</strong> 
           e <strong>integração de APIs</strong>. Nossa missão é proporcionar uma experiência hands-on, 
-          permitindo que desenvolvedores em formação compreendam na prática como construir aplicações 
-          modernas que consomem dados de serviços externos.
+          permitindo compreender na prática como construir aplicações modernas que consomem dados de serviços externos.
         </p>
         <p>
-          Através de projetos reais e desafios progressivos, buscamos consolidar conhecimentos 
+          Através de projetos reais e desafios progressivos, consolidamos conhecimentos 
           em tecnologias como Angular, Ionic, TypeScript e consumo de APIs REST.
         </p>
       </ion-card-content>
     </ion-card>
 
-    <!-- Card Dados Educacionais -->
     <ion-card class="card-sobre">
       <ion-card-header>
         <ion-card-title>Dados e Fins Educacionais</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <p>
+        <p class="aviso-destaque">
           <strong>⚠️ Importante:</strong> Todos os dados utilizados nesta plataforma são estritamente 
           para fins <strong>educativos e de testes</strong>.
         </p>
         <ul class="disclaimer-list">
           <li>✓ Sem qualquer tipo de monetização</li>
           <li>✓ Fins exclusivamente acadêmicos</li>
-          <li>✓ Conteúdo fornecido por parceiros educacionais</li>
+          <li>✓ Conteúdo fornecido por API pública (TMDB)</li>
           <li>✓ Ambiente seguro para prática e aprendizado</li>
         </ul>
         <p class="warning-text">
-          Qualquer uso comercial ou indevido dos dados desta plataforma é estritamente proibido.
+          Qualquer uso comercial ou indevido dos dados desta plataforma é proibido.
         </p>
       </ion-card-content>
     </ion-card>
 
-    <!-- Card Contato/Info Adicional -->
     <ion-card class="card-sobre">
       <ion-card-header>
-        <ion-card-title>Aprendizado Prático</ion-card-title>
+        <ion-card-title>Aprendizado Prático em ADS</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <p>
-          Esta aplicação foi desenvolvida como um projeto educacional para demonstrar:
+          Esta aplicação demonstra o domínio técnico dos seguintes conceitos de arquitetura front-end:
         </p>
         <ul class="learning-list">
-          <li>Desenvolvimento de interfaces responsivas</li>
-          <li>Consumo de APIs externas</li>
-          <li>Gerenciamento de estado em Angular</li>
-          <li>Boas práticas de arquitetura em componentes</li>
-          <li>Armazenamento local com localStorage</li>
-          <li>Desenvolvimento mobile cross-platform</li>
+          <li>Desenvolvimento de interfaces responsivas e fluidas</li>
+          <li>Consumo de APIs externas assíncronas com RxJS</li>
+          <li>Gerenciamento de estado e fluxo de dados do Angular</li>
+          <li>Controle de rotas dinâmicas e híbridas (Filmes/Séries)</li>
+          <li>Persistência de buscas e dados com localStorage</li>
+          <li>Componentização moderna com arquitetura standalone</li>
         </ul>
       </ion-card-content>
     </ion-card>
 
-    <!-- Footer -->
     <div class="footer-section">
       <p class="footer-text">
         ADS Flix © 2026 | Plataforma Educacional | Todos os direitos reservados

@@ -90,6 +90,11 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  verMais(categoria: string) {
+  // Navega para uma página de listagem completa passando qual categoria o usuário quer ver
+  this.router.navigate(['/explorar', categoria]);
+}
+
   getPoster(path: string) {
     return this.tmdb.getImageUrl(path, 'w500');
   }
